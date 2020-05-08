@@ -1,15 +1,10 @@
-create table StateHistorical (
+create table statehistorical (
     id serial primary key,
-	date					 int,
+	date			  int,
 	state                    text,
 	positive                 int,
-	pospitalizedIncrease     int,
-	positiveIncrease         int,
-	negativeIncrease         int,
-	deathIncrease            int,
-	totalTestResultsIncrease int,
 	negative                 int,
-	pending                  text,
+	pending                  int,
 	hospitalizedCurrently    int,
 	hospitalizedCumulative   int,
 	inIcuCurrently           int,
@@ -17,7 +12,12 @@ create table StateHistorical (
 	onVentilatorCurrently    int,
 	onVentilatorCumulative   int,
 	recovered                int,
+	death					 int,
 	hospitalized             int,
-	total                    int,
 	totalTestResults         int,
-);
+	hospitalizedIncrease     int,
+	deathIncrease            int,
+	negativeIncrease         int,
+	positiveIncrease         int,
+	totalTestResultsIncrease int,
+)

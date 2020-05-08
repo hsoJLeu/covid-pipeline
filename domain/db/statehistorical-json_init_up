@@ -1,0 +1,4 @@
+create table statehistoricaljson (
+    id serial primary key,
+	data jsonb,
+);
