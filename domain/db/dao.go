@@ -29,6 +29,7 @@ type StateHistorical struct {
 	OnVentilatorCurrently    int    `db:"onvenitlatorcurrently"`
 	OnVentilatorCumulative   int    `db:"onventilatorcumulative"`
 	Recovered                int    `db:"recovered"`
+	Hash                     string `db:"hash"`
 	Hospitalized             int    `db:"hospitalized"`
 	Death                    int    `db:"death"`
 }
@@ -43,10 +44,7 @@ type Pilot struct {
 
 func New(database_url string) (pilot Pilot, err error) {
 	if database_url == "" {
-		logger.Error("Invalid dsn", zap.Error(err))
-		// err = errors.Errorf(
-		// 	"All fields must be set (%s)",
-		// 	spew.Sdump(cfg))
+		logger.Error("DB", "Invalid dsn", zap.Error(err))
 		return
 	}
 

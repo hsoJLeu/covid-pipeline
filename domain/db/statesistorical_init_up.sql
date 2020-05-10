@@ -1,6 +1,12 @@
+create table daily (
+	id serial primary key,
+	date_id int,
+	UNIQUE (date_id)
+
+);
+
 create table statehistorical (
-    id serial primary key,
-	date			  int,
+	date			  		 int ,
 	state                    text,
 	positive                 int,
 	negative                 int,
@@ -12,6 +18,7 @@ create table statehistorical (
 	onVentilatorCurrently    int,
 	onVentilatorCumulative   int,
 	recovered                int,
+	hash					 varchar(255),
 	death					 int,
 	hospitalized             int,
 	totalTestResults         int,
@@ -20,4 +27,5 @@ create table statehistorical (
 	negativeIncrease         int,
 	positiveIncrease         int,
 	totalTestResultsIncrease int,
-)
+	UNIQUE (hash)
+);

@@ -12,6 +12,7 @@ import (
 
 	"time"
 
+	"github.com/go-co-op/gocron"
 	"github.com/hsojleu/covid-pipeline/domain/db"
 	_ "github.com/jackc/pgx/stdlib"
 	"github.com/jackc/pgx/v4"
@@ -21,7 +22,7 @@ import (
 
 var (
 	logger   *zap.SugaredLogger
-	conn     *pgx.Conn
+	conn     db.Pilot
 	myClient = &http.Client{Timeout: 10 * time.Second}
 )
 
@@ -46,6 +47,7 @@ type RequestBody struct {
 	OnVentilatorCurrently    int    `json:"onVentilatorCurrently"`
 	OnVentilatorCumulative   int    `json:"onVentilatorCumulative"`
 	Recovered                int    `json:"recovered"`
+	Hash                     string `json:"hash"`
 	Hospitalized             int    `json:"hospitalized"`
 	Death                    int    `json:"death"`
 }
@@ -92,33 +94,23 @@ func ingestStateHistorical(url string) {
 		data[i].Negative = rb[i].Negative
 		data[i].DeathIncrease = rb[i].DeathIncrease
 		data[i].Recovered = rb[i].Recovered
-
 	}
 	logger.Info("mapped data to struct: ", data[1])
-
-	// conn.Exec(context.Background(), `insert into `)
-	// `INSERT INTO student (id,name,data) VALUES (:id,:name,:data)`, record
-	// logger.Info(res)
 
 	// batch insert data into postgres
 	batch := &pgx.Batch{}
 	numInserts := len(rb)
-	sql := `insert into statehistorical (
-		date, state, positive, negative, pending,
-		hospitalizedCurrently, hospitalizedCumulative, inIcuCurrently, inIcuCumulative,
-		onVentilatorCurrently, onVentilatorCumulative,
-		recovered, death, hospitalized, totaltestresults,
-		hospitalizedincrease, deathincrease, negativeIncrease, positiveIncrease, totaltestresultsincrease )
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20);`
 
-	// sql_update :=
-	// 	`insert into statehistorical (
-	// 	date, state, positive, negative, pending,
-	// 	hospitalizedCurrently, hospitalizedCumulative, inIcuCurrently, inIcuCumulative,
-	// 	onVentilatorCurrently, onVentilatorCumulative,
-	// 	recovered, death, hospitalized, totaltestresults,
-	// 	hospitalizedincrease, deathincrease, negativeIncrease, positiveIncrease, totaltestresultsincrease )
-	// 	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) ON CONFLICT (date) DO NOTHING;`
+	sql :=
+		`insert into test (
+			date, state, positive, negative, pending,
+			hospitalizedCurrently, hospitalizedCumulative, inIcuCurrently, inIcuCumulative,
+			onVentilatorCurrently, onVentilatorCumulative,
+			recovered, death, hospitalized, totaltestresults,
+			hospitalizedincrease, deathincrease, negativeIncrease, positiveIncrease, totaltestresultsincrease,
+			hash)
+			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)
+			ON CONFLICT (hash) DO NOTHING;`
 
 	for i := 0; i < numInserts; i++ {
 		ref := &rb[i]
@@ -127,10 +119,11 @@ func ingestStateHistorical(url string) {
 			ref.HospitalizedCurrently, ref.HospitalizedCumulative, ref.InIcuCurrently, ref.InIcuCumulative,
 			ref.OnVentilatorCurrently, ref.OnVentilatorCumulative,
 			ref.Recovered, ref.Death, ref.Hospitalized, ref.TotalTestResults,
-			ref.HospitalizedIncrease, ref.DeathIncrease, ref.NegativeIncrease, ref.PositiveIncrease, ref.TotalTestResultsIncrease)
+			ref.HospitalizedIncrease, ref.DeathIncrease, ref.NegativeIncrease, ref.PositiveIncrease, ref.TotalTestResultsIncrease,
+			ref.Hash)
 	}
 
-	br := conn.SendBatch(context.Background(), batch)
+	br := conn.Db.SendBatch(context.Background(), batch)
 	br.Close()
 }
 
@@ -140,20 +133,25 @@ func main() {
 	logger = newLogger.Sugar()
 
 	err := errors.New("Init error")
-	conn, err = pgx.Connect(context.Background(), os.Getenv("PG_CONFIG"))
+	conn, err = db.New("PG_CONFIG")
+	// conn, err = pgx.Connect(context.Background(), os.Getenv("PG_CONFIG"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
-	defer conn.Close(context.Background())
+	defer conn.Db.Close(context.Background())
 
-	// States Current Data
-	// currentStateURL := "https://covidtracking.com/api/v1/states/current.json"
-
-	// States Historical Data
+	//	States Current Data
+	//	currentStateURL := "https://covidtracking.com/api/v1/states/current.json"
+	//	States Historical Data
 	dailyStateURL := "https://covidtracking.com/api/v1/states/daily.json"
 
-	ingestStateHistorical(dailyStateURL)
+	job := gocron.NewScheduler(time.UTC)
+	job.Every(1).Day().At("17:01").Do(ingestStateHistorical, dailyStateURL)
 
-	defer conn.Close(context.Background())
+	// NextRun gets the next running time
+	_, time := job.NextRun()
+	fmt.Println(time)
+
+	<-job.Start()
 }
