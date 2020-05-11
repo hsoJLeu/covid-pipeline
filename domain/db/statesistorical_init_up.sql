@@ -18,7 +18,6 @@ create table statehistorical (
 	onVentilatorCurrently    int,
 	onVentilatorCumulative   int,
 	recovered                int,
-	hash					 varchar(255),
 	death					 int,
 	hospitalized             int,
 	totalTestResults         int,
@@ -27,5 +26,6 @@ create table statehistorical (
 	negativeIncrease         int,
 	positiveIncrease         int,
 	totalTestResultsIncrease int,
+	hash					 varchar(255),
 	UNIQUE (hash)
 );

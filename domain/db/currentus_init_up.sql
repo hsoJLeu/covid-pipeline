@@ -15,4 +15,5 @@ create table current_us (
     hospitalized	        tinyint,
     totalTestResults	    integer,
     notes	                varchar(255),
+    UNIQUE(hash)
 )

@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 
@@ -26,7 +25,12 @@ var (
 	myClient = &http.Client{Timeout: 10 * time.Second}
 )
 
-type JsonDate time.Time
+const (
+	//	Current state Data
+	currentStateURL = "https://covidtracking.com/api/v1/states/current.json"
+	//	Historical state Data
+	dailyStateURL = "https://covidtracking.com/api/v1/states/daily.json"
+)
 
 type RequestBody struct {
 	Date                     int    `json:"date"`
@@ -53,40 +57,37 @@ type RequestBody struct {
 }
 
 // Ingest daily historical data into Postgres
-func ingestStateHistorical(url string) {
+func ingestStateHistorical(url string) error {
+
 	response, err := myClient.Get(url)
 	if err != nil {
 		logger.Error("failed to get data", zap.Error(err))
+		return err
 	}
 	defer response.Body.Close()
 
 	// Read data
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 
 	// dump data for testing
-	writeURL := "ingest_log"
-	databytes := []byte(body)
-
-	err = ioutil.WriteFile(writeURL, databytes, 0644)
-	if err != nil {
-		logger.Error("Unable to write file", zap.Error(err))
-	}
+	dumpDataToFile("ingest_log", body)
 
 	// Unmarshll data into struct
 	var rb []db.StateHistorical
 	err = json.Unmarshal([]byte(body), &rb)
 	if err != nil {
 		logger.Error("failed to unmarshal data", zap.Error(err))
+		return err
 	}
 
-	logger.Info("Request body has: ", len(rb))
+	logger.Infof("Request body has: %d", len(rb))
 
 	// Map json to data[] then insert
 	data := make([]db.StateHistorical, len(rb))
-	logger.Info("Size of array for data objects going into db", len(data))
+	logger.Infof("Size of array for data objects going into db: %d", len(data))
 	for i := 0; i < len(rb); i++ {
 		data[i].Date = rb[i].Date
 		data[i].State = rb[i].State
@@ -125,33 +126,60 @@ func ingestStateHistorical(url string) {
 
 	br := conn.Db.SendBatch(context.Background(), batch)
 	br.Close()
+
+	return err
 }
 
-func main() {
-
-	newLogger := zap.NewExample()
-	logger = newLogger.Sugar()
+func init() {
+	logger = zap.NewExample().Sugar()
+	defer logger.Sync()
 
 	err := errors.New("Init error")
-	conn, err = db.New("PG_CONFIG")
-	// conn, err = pgx.Connect(context.Background(), os.Getenv("PG_CONFIG"))
+	switch os.Args[1] {
+	case "PG_CONFIG":
+		conn, err = db.New("PG_CONFIG")
+
+	case "RDS_CONFIG":
+		conn, err = db.New("RDS_CONFIG")
+	}
+
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
 	defer conn.Db.Close(context.Background())
+}
 
-	//	States Current Data
-	//	currentStateURL := "https://covidtracking.com/api/v1/states/current.json"
-	//	States Historical Data
-	dailyStateURL := "https://covidtracking.com/api/v1/states/daily.json"
+func main() {
 
-	job := gocron.NewScheduler(time.UTC)
-	job.Every(1).Day().At("17:01").Do(ingestStateHistorical, dailyStateURL)
+	// Ingest only historical data currently
+	ingestStateHistorical(dailyStateURL)
+
+	// Fetch data every 6 hours
+	job := gocron.NewScheduler(time.Local)
+	// job.Every(2).Minutes().Do(ingestStateHistorical, dailyStateURL)
+	job.Every(2).Minutes().Do(main)
 
 	// NextRun gets the next running time
 	_, time := job.NextRun()
-	fmt.Println(time)
+	logger.Infof("Next job will run at: %s", time)
 
 	<-job.Start()
+}
+
+func dumpDataToFile(path string, body []byte) error {
+	if path == "" {
+		logger.Error("No path name specified")
+		return errors.New("No path name specified to dump data")
+	}
+	writeURL := path
+	databytes := []byte(body)
+
+	err := ioutil.WriteFile(writeURL, databytes, 0644)
+	if err != nil {
+		logger.Error("Unable to write file", zap.Error(err))
+		return err
+	}
+
+	return err
 }
