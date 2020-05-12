@@ -22,6 +22,7 @@ import (
 var (
 	logger   *zap.SugaredLogger
 	conn     db.Pilot
+	ctx      context.Context
 	myClient = &http.Client{Timeout: 10 * time.Second}
 )
 
@@ -54,6 +55,7 @@ type RequestBody struct {
 	Hash                     string `json:"hash"`
 	Hospitalized             int    `json:"hospitalized"`
 	Death                    int    `json:"death"`
+	LastModified             string `json:"lastModified"`
 }
 
 // Ingest daily historical data into Postgres
@@ -73,37 +75,24 @@ func ingestStateHistorical(url string) error {
 	}
 
 	// dump data for testing
-	dumpDataToFile("ingest_log", body)
+	dumpDataToFile("ingest_statehistorical_log", body)
 
 	// Unmarshll data into struct
-	var rb []db.StateHistorical
+	var rb []db.CovidData
 	err = json.Unmarshal([]byte(body), &rb)
 	if err != nil {
 		logger.Error("failed to unmarshal data", zap.Error(err))
 		return err
 	}
 
-	logger.Infof("Request body has: %d", len(rb))
-
-	// Map json to data[] then insert
-	data := make([]db.StateHistorical, len(rb))
-	logger.Infof("Size of array for data objects going into db: %d", len(data))
-	for i := 0; i < len(rb); i++ {
-		data[i].Date = rb[i].Date
-		data[i].State = rb[i].State
-		data[i].Positive = rb[i].Positive
-		data[i].Negative = rb[i].Negative
-		data[i].DeathIncrease = rb[i].DeathIncrease
-		data[i].Recovered = rb[i].Recovered
-	}
-	logger.Info("mapped data to struct: ", data[1])
+	logger.Infof("state historical request body has: %d objects", len(rb))
 
 	// batch insert data into postgres
 	batch := &pgx.Batch{}
 	numInserts := len(rb)
 
 	sql :=
-		`insert into test (
+		`insert into statehistorical (
 			date, state, positive, negative, pending,
 			hospitalizedCurrently, hospitalizedCumulative, inIcuCurrently, inIcuCumulative,
 			onVentilatorCurrently, onVentilatorCumulative,
@@ -125,7 +114,70 @@ func ingestStateHistorical(url string) error {
 	}
 
 	br := conn.Db.SendBatch(context.Background(), batch)
-	br.Close()
+	err = br.Close()
+	if err != nil {
+		logger.Fatal("Unable to close batch request", err)
+	}
+
+	return err
+}
+
+func ingestStateCurrent(url string) error {
+
+	response, err := myClient.Get(url)
+	if err != nil {
+		logger.Error("failed to get data", zap.Error(err))
+		return err
+	}
+	defer response.Body.Close()
+
+	// Read data
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		logger.Fatal(err)
+	}
+
+	// dump data for testing
+	dumpDataToFile("ingest_statecurrent_log", body)
+
+	// Unmarshll data into struct
+	var rb []db.CovidData
+	err = json.Unmarshal([]byte(body), &rb)
+	if err != nil {
+		logger.Error("failed to unmarshal data", zap.Error(err))
+		return err
+	}
+
+	logger.Infof("Current state request body has: %d objects", len(rb))
+
+	// batch insert data into postgres
+	batch := &pgx.Batch{}
+	numInserts := len(rb)
+
+	sql := `insert into statecurrent (
+    			state, positive, negative, recovered, death,
+    			hospitalized, totaltestresults, lastmodified, hash)
+			VALUES (
+				$1, $2, $3, $4, $5, $6, $7, $8, $9)
+			ON CONFLICT (state)
+			DO UPDATE SET
+				positive=$2,
+				negative=$3,
+				recovered=$4, death=$5,
+    			hospitalized=$6, totaltestresults=$7, lastmodified=$8, hash=$9;
+			`
+	for i := 0; i < numInserts; i++ {
+		ref := &rb[i]
+		batch.Queue(sql,
+			ref.State, ref.Positive, ref.Negative, ref.Recovered, ref.Death,
+			ref.Hospitalized, ref.TotalTestResults, ref.LastModified, ref.Hash)
+	}
+
+	br := conn.Db.SendBatch(ctx, batch)
+	err = br.Close()
+	if err != nil {
+		logger.Fatal("Unable to close batch request", err)
+	}
 
 	return err
 }
@@ -138,27 +190,33 @@ func init() {
 	switch os.Args[1] {
 	case "PG_CONFIG":
 		conn, err = db.New("PG_CONFIG")
+		logger.Info("Connected to RDS db", err, &conn)
 
 	case "RDS_CONFIG":
 		conn, err = db.New("RDS_CONFIG")
+		logger.Info("Connected to RDS db", err, &conn)
 	}
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
-	defer conn.Db.Close(context.Background())
+
 }
 
 func main() {
+	ctx = context.Background()
 
-	// Ingest only historical data currently
+	// Ingest state data
+	ingestStateCurrent(currentStateURL)
 	ingestStateHistorical(dailyStateURL)
 
-	// Fetch data every 6 hours
+	defer conn.Db.Close(context.Background())
+
+	// Fetch data every 3 hours
 	job := gocron.NewScheduler(time.Local)
-	// job.Every(2).Minutes().Do(ingestStateHistorical, dailyStateURL)
 	job.Every(2).Minutes().Do(main)
+	// job.Every(3).Hours().Do(main)
 
 	// NextRun gets the next running time
 	_, time := job.NextRun()

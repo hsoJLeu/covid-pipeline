@@ -6,6 +6,7 @@ create table daily (
 );
 
 create table statehistorical (
+	id serial primary key,
 	date			  		 int ,
 	state                    text,
 	positive                 int,

@@ -10,7 +10,8 @@ import (
 
 var logger *zap.SugaredLogger
 
-type StateHistorical struct {
+// Define our Database model
+type CovidData struct {
 	Date                     int    `db:"date"`
 	State                    string `db:"state"`
 	Positive                 int    `db:"positive"`
@@ -32,8 +33,10 @@ type StateHistorical struct {
 	Hash                     string `db:"hash"`
 	Hospitalized             int    `db:"hospitalized"`
 	Death                    int    `db:"death"`
+	LastModified             string `db:"lastmodified"`
 }
 
+// Wraps dao with Db conn
 type Pilot struct {
 	// Db holds a sql.DB pointer that represents a pool of zero or more
 	// underlying connections - safe for concurrent use by multiple
@@ -42,17 +45,14 @@ type Pilot struct {
 	Db *pgx.Conn
 }
 
-func New(database_url string) (pilot Pilot, err error) {
-	if database_url == "" {
+// News up a new DB connection
+func New(databaseURL string) (pilot Pilot, err error) {
+	if databaseURL == "" {
 		logger.Error("DB", "Invalid dsn", zap.Error(err))
 		return
 	}
 
-	// The first argument corresponds to the driver name that the driver
-	// (in this case, `lib/pq`) used to register itself in `database/sql`.
-	// The next argument specifies the parameters to be used in the connection.
-	// Details about this string can be seen at https://godoc.org/github.com/lib/pq
-	db, err := pgx.Connect(context.Background(), os.Getenv(database_url))
+	db, err := pgx.Connect(context.Background(), os.Getenv(databaseURL))
 	if err != nil {
 		logger.Error("Couldn't open connection to postgre database (%s)", zap.Error(err))
 		return
