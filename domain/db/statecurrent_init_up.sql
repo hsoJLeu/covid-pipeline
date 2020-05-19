@@ -7,7 +7,7 @@ create table statecurrent (
     death	                integer,
     hospitalized	        integer,
     totalTestResults	    integer,
-    lastModified            varchar(100),
+    datechecked             varchar(255),
     hash	                varchar(255),
     UNIQUE (state)
 )
