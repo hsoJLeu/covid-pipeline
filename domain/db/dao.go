@@ -62,13 +62,6 @@ func New(databaseURL string) (pilot Pilot, err error) {
 		return
 	}
 
-	// Ping verifies if the connection to the database is alive or if a
-	// new connection can be made.
-	// if err = db.Ping(context.Background()); err != nil {
-	// 	logger.Error("Couldn't ping postgres database (%s)", zap.Error(err))
-	// 	return
-	// }
-
 	pilot.Db = db
 	return
 }
@@ -117,7 +110,6 @@ func (p *Pilot) UpdateStateCurrent(rb []CovidData) error {
 	if rb == nil {
 		return errors.New("Request body cannot be nil")
 	}
-
 	batch := &pgx.Batch{}
 	numInserts := len(rb)
 
@@ -143,8 +135,7 @@ func (p *Pilot) UpdateStateCurrent(rb []CovidData) error {
 	br := p.Db.SendBatch(context.Background(), batch)
 	exec, err := br.Exec()
 	res := exec.RowsAffected()
-	fmt.Printf("STATE CURRENT Rows affected: %d\n", res)
-
+	logger.Infof("STATE CURRENT - Successfully update %d row", res)
 	err = br.Close()
 	if err != nil {
 		logger.Fatal("Unable to close batch request", err)
@@ -159,36 +150,31 @@ func (p *Pilot) UpdateUSCurrent(rb []CovidData) error {
 	}
 
 	sql := `insert into uscurrent (
-    			state, positive, negative, recovered, death,
+    			positive, negative, recovered, death,
     			hospitalized, totaltestresults, lastmodified, hash)
 			VALUES (
-				$1, $2, $3, $4, $5, $6, $7, $8, $9)
-			ON CONFLICT (state)
+				$1, $2, $3, $4, $5, $6, $7, $8)
+			ON CONFLICT (id)
 			DO UPDATE SET
-				positive=$2,
-				negative=$3,
-				recovered=$4, death=$5,
-    			hospitalized=$6, totaltestresults=$7, lastmodified=$8, hash=$9;
+				positive=$1,
+				negative=$2,
+				recovered=$3, death=$4,
+    			hospitalized=$5, totaltestresults=$6, lastmodified=$7, hash=$8;
 			`
 	ref := &rb[0]
-	result, err := p.Db.Exec(context.Background(), sql, ref.State, ref.Positive, ref.Negative, ref.Recovered, ref.Death,
+	result, err := p.Db.Exec(context.Background(), sql, ref.Positive, ref.Negative, ref.Recovered, ref.Death,
 		ref.Hospitalized, ref.TotalTestResults, ref.LastModified, ref.Hash)
+
 	if err != nil {
-		logger.Error("Could not insert into USCURRENT: ", zap.Error(err))
+		fmt.Println("Could not insert into USCURRENT: ", zap.Error(err))
 	}
 	res := result.RowsAffected()
-	fmt.Printf("US CURRENT Rows affected: %d\n", res)
-
-	// for i := 0; i <= numInserts; i++ {
-	// 	batch.Queue(sql,
-	// 		)
-	// }
-
-	// br := p.Db.SendBatch(context.Background(), batch)
-	// err := br.Close()
-	// if err != nil {
-	// 	logger.Fatal("Unable to close batch request", err)
-	// }
+	logger.Infof("US CURRENT Rows affected: %d\n", res)
 
 	return err
+}
+
+func init() {
+	logger = zap.NewExample().Sugar()
+	defer logger.Sync()
 }

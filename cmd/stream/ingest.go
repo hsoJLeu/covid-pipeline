@@ -206,21 +206,17 @@ func main() {
 	// ingestUSCurrent(currentUSURL)
 
 	job := cron.New()
-	job.AddFunc("@every 30s", func() {
+	job.AddFunc("@every 6h", func() {
 		ingestStateCurrent(currentStateURL)
-		logger.Info("Done ingest state current")
-		// wg.Done()
+		logger.Info("STATE CURRENT UPDATED")
 	})
-	job.AddFunc("@every 30s", func() {
+	job.AddFunc("@every 6h", func() {
 		ingestStateHistorical(dailyStateURL)
-		logger.Info("Done ingest state historical")
-		// wg.Done()
-
+		logger.Info("STATE HISTORICAL UPDATED")
 	})
-	job.AddFunc("@every 30s", func() {
+	job.AddFunc("@every 6h", func() {
 		ingestUSCurrent(currentUSURL)
-		logger.Info("Done ingest US current")
-		// wg.Done()
+		logger.Info("US CURRENT UPDATED")
 	})
 
 	job.Start()

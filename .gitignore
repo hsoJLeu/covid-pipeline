@@ -1,0 +1,7 @@
+## User settings
+xcuserdata/
+
+*.xcworkspace
+*.xcodeproj
+
+Pods/

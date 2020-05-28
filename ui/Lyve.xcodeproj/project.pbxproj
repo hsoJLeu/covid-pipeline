@@ -1,0 +1,636 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9C95809EE61630457E6C3E32 /* Pods_LyveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BB5A36FBEE174D208225CC /* Pods_LyveTests.framework */; };
+		9EA016A6DE4B9234A8A46DF2 /* Pods_Lyve.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB445E2D7244B64353ACBEE6 /* Pods_Lyve.framework */; };
+		D069CF3F247DDE3700F03C39 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D069CF3E247DDE3700F03C39 /* DBService.swift */; };
+		D0F2201E2477C1CB00BC269E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2201D2477C1CB00BC269E /* AppDelegate.swift */; };
+		D0F220202477C1CB00BC269E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2201F2477C1CB00BC269E /* SceneDelegate.swift */; };
+		D0F220222477C1CB00BC269E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F220212477C1CB00BC269E /* ViewController.swift */; };
+		D0F220252477C1CB00BC269E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F220232477C1CB00BC269E /* Main.storyboard */; };
+		D0F220282477C1CB00BC269E /* Lyve.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0F220262477C1CB00BC269E /* Lyve.xcdatamodeld */; };
+		D0F2202A2477C1CE00BC269E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0F220292477C1CE00BC269E /* Assets.xcassets */; };
+		D0F2202D2477C1CE00BC269E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F2202B2477C1CE00BC269E /* LaunchScreen.storyboard */; };
+		D0F220382477C1CE00BC269E /* LyveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F220372477C1CE00BC269E /* LyveTests.swift */; };
+		D0F22045247DB5A500BC269E /* StateHistorical.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F22044247DB5A500BC269E /* StateHistorical.swift */; };
+		D0F22048247DBB0A00BC269E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F22047247DBB0A00BC269E /* Service.swift */; };
+		D0F2204A247DD89400BC269E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0F22049247DD89400BC269E /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D0F220342477C1CE00BC269E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F220122477C1CB00BC269E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0F220192477C1CB00BC269E;
+			remoteInfo = Lyve;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4DBC89B623476AA065D672D8 /* Pods-LyveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LyveTests.release.xcconfig"; path = "Target Support Files/Pods-LyveTests/Pods-LyveTests.release.xcconfig"; sourceTree = "<group>"; };
+		C8AA1C068E2334224D78A48C /* Pods-Lyve.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lyve.release.xcconfig"; path = "Target Support Files/Pods-Lyve/Pods-Lyve.release.xcconfig"; sourceTree = "<group>"; };
+		D069CF3E247DDE3700F03C39 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		D0F2201A2477C1CB00BC269E /* Lyve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lyve.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0F2201D2477C1CB00BC269E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D0F2201F2477C1CB00BC269E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D0F220212477C1CB00BC269E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D0F220242477C1CB00BC269E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D0F220272477C1CB00BC269E /* Lyve.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lyve.xcdatamodel; sourceTree = "<group>"; };
+		D0F220292477C1CE00BC269E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D0F2202C2477C1CE00BC269E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D0F2202E2477C1CE00BC269E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0F220332477C1CE00BC269E /* LyveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LyveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0F220372477C1CE00BC269E /* LyveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyveTests.swift; sourceTree = "<group>"; };
+		D0F220392477C1CE00BC269E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0F22044247DB5A500BC269E /* StateHistorical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateHistorical.swift; sourceTree = "<group>"; };
+		D0F22047247DBB0A00BC269E /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		D0F22049247DD89400BC269E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D3BB5A36FBEE174D208225CC /* Pods_LyveTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LyveTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3115DEFA4566EFEE2FA8C78 /* Pods-Lyve.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lyve.debug.xcconfig"; path = "Target Support Files/Pods-Lyve/Pods-Lyve.debug.xcconfig"; sourceTree = "<group>"; };
+		EB445E2D7244B64353ACBEE6 /* Pods_Lyve.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lyve.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCA4BE48A0E1E7AEF0C5AB15 /* Pods-LyveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LyveTests.debug.xcconfig"; path = "Target Support Files/Pods-LyveTests/Pods-LyveTests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D0F220172477C1CB00BC269E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EA016A6DE4B9234A8A46DF2 /* Pods_Lyve.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0F220302477C1CE00BC269E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C95809EE61630457E6C3E32 /* Pods_LyveTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3449D39A3AD874C5BDBA0396 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E3115DEFA4566EFEE2FA8C78 /* Pods-Lyve.debug.xcconfig */,
+				C8AA1C068E2334224D78A48C /* Pods-Lyve.release.xcconfig */,
+				FCA4BE48A0E1E7AEF0C5AB15 /* Pods-LyveTests.debug.xcconfig */,
+				4DBC89B623476AA065D672D8 /* Pods-LyveTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D0F220112477C1CB00BC269E = {
+			isa = PBXGroup;
+			children = (
+				D0F2201C2477C1CB00BC269E /* Lyve */,
+				D0F220362477C1CE00BC269E /* LyveTests */,
+				D0F2201B2477C1CB00BC269E /* Products */,
+				3449D39A3AD874C5BDBA0396 /* Pods */,
+				D95F0DEE649909B547919FB8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D0F2201B2477C1CB00BC269E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0F2201A2477C1CB00BC269E /* Lyve.app */,
+				D0F220332477C1CE00BC269E /* LyveTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0F2201C2477C1CB00BC269E /* Lyve */ = {
+			isa = PBXGroup;
+			children = (
+				D0F22043247DB38700BC269E /* dashboard */,
+				D0F22042247DB36900BC269E /* data */,
+				D0F2201D2477C1CB00BC269E /* AppDelegate.swift */,
+				D0F2201F2477C1CB00BC269E /* SceneDelegate.swift */,
+				D0F220212477C1CB00BC269E /* ViewController.swift */,
+				D0F220232477C1CB00BC269E /* Main.storyboard */,
+				D0F220292477C1CE00BC269E /* Assets.xcassets */,
+				D0F2202B2477C1CE00BC269E /* LaunchScreen.storyboard */,
+				D0F2202E2477C1CE00BC269E /* Info.plist */,
+				D0F22049247DD89400BC269E /* GoogleService-Info.plist */,
+				D0F220262477C1CB00BC269E /* Lyve.xcdatamodeld */,
+			);
+			path = Lyve;
+			sourceTree = "<group>";
+		};
+		D0F220362477C1CE00BC269E /* LyveTests */ = {
+			isa = PBXGroup;
+			children = (
+				D0F220372477C1CE00BC269E /* LyveTests.swift */,
+				D0F220392477C1CE00BC269E /* Info.plist */,
+			);
+			path = LyveTests;
+			sourceTree = "<group>";
+		};
+		D0F22042247DB36900BC269E /* data */ = {
+			isa = PBXGroup;
+			children = (
+				D0F22046247DB78D00BC269E /* service */,
+				D0F22044247DB5A500BC269E /* StateHistorical.swift */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		D0F22043247DB38700BC269E /* dashboard */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = dashboard;
+			sourceTree = "<group>";
+		};
+		D0F22046247DB78D00BC269E /* service */ = {
+			isa = PBXGroup;
+			children = (
+				D0F22047247DBB0A00BC269E /* Service.swift */,
+				D069CF3E247DDE3700F03C39 /* DBService.swift */,
+			);
+			path = service;
+			sourceTree = "<group>";
+		};
+		D95F0DEE649909B547919FB8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EB445E2D7244B64353ACBEE6 /* Pods_Lyve.framework */,
+				D3BB5A36FBEE174D208225CC /* Pods_LyveTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D0F220192477C1CB00BC269E /* Lyve */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0F2203C2477C1CE00BC269E /* Build configuration list for PBXNativeTarget "Lyve" */;
+			buildPhases = (
+				BC659A1B0B718123CA3EDD06 /* [CP] Check Pods Manifest.lock */,
+				D0F220162477C1CB00BC269E /* Sources */,
+				D0F220172477C1CB00BC269E /* Frameworks */,
+				D0F220182477C1CB00BC269E /* Resources */,
+				552A1E69AA85825613F92473 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lyve;
+			productName = Lyve;
+			productReference = D0F2201A2477C1CB00BC269E /* Lyve.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D0F220322477C1CE00BC269E /* LyveTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0F2203F2477C1CE00BC269E /* Build configuration list for PBXNativeTarget "LyveTests" */;
+			buildPhases = (
+				4662BA051BF7FD872B8A007E /* [CP] Check Pods Manifest.lock */,
+				D0F2202F2477C1CE00BC269E /* Sources */,
+				D0F220302477C1CE00BC269E /* Frameworks */,
+				D0F220312477C1CE00BC269E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0F220352477C1CE00BC269E /* PBXTargetDependency */,
+			);
+			name = LyveTests;
+			productName = LyveTests;
+			productReference = D0F220332477C1CE00BC269E /* LyveTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D0F220122477C1CB00BC269E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Josh Leung";
+				TargetAttributes = {
+					D0F220192477C1CB00BC269E = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					D0F220322477C1CE00BC269E = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = D0F220192477C1CB00BC269E;
+					};
+				};
+			};
+			buildConfigurationList = D0F220152477C1CB00BC269E /* Build configuration list for PBXProject "Lyve" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D0F220112477C1CB00BC269E;
+			productRefGroup = D0F2201B2477C1CB00BC269E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D0F220192477C1CB00BC269E /* Lyve */,
+				D0F220322477C1CE00BC269E /* LyveTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D0F220182477C1CB00BC269E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0F2202D2477C1CE00BC269E /* LaunchScreen.storyboard in Resources */,
+				D0F2204A247DD89400BC269E /* GoogleService-Info.plist in Resources */,
+				D0F2202A2477C1CE00BC269E /* Assets.xcassets in Resources */,
+				D0F220252477C1CB00BC269E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0F220312477C1CE00BC269E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4662BA051BF7FD872B8A007E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LyveTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		552A1E69AA85825613F92473 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lyve/Pods-Lyve-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lyve/Pods-Lyve-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Lyve/Pods-Lyve-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC659A1B0B718123CA3EDD06 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Lyve-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D0F220162477C1CB00BC269E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0F22045247DB5A500BC269E /* StateHistorical.swift in Sources */,
+				D0F220222477C1CB00BC269E /* ViewController.swift in Sources */,
+				D0F220282477C1CB00BC269E /* Lyve.xcdatamodeld in Sources */,
+				D069CF3F247DDE3700F03C39 /* DBService.swift in Sources */,
+				D0F2201E2477C1CB00BC269E /* AppDelegate.swift in Sources */,
+				D0F22048247DBB0A00BC269E /* Service.swift in Sources */,
+				D0F220202477C1CB00BC269E /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0F2202F2477C1CE00BC269E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0F220382477C1CE00BC269E /* LyveTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D0F220352477C1CE00BC269E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0F220192477C1CB00BC269E /* Lyve */;
+			targetProxy = D0F220342477C1CE00BC269E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D0F220232477C1CB00BC269E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0F220242477C1CB00BC269E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D0F2202B2477C1CE00BC269E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0F2202C2477C1CE00BC269E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D0F2203A2477C1CE00BC269E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D0F2203B2477C1CE00BC269E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D0F2203D2477C1CE00BC269E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3115DEFA4566EFEE2FA8C78 /* Pods-Lyve.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q678CV3DLR;
+				INFOPLIST_FILE = Lyve/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshualeung.Lyve;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D0F2203E2477C1CE00BC269E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8AA1C068E2334224D78A48C /* Pods-Lyve.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q678CV3DLR;
+				INFOPLIST_FILE = Lyve/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshualeung.Lyve;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D0F220402477C1CE00BC269E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCA4BE48A0E1E7AEF0C5AB15 /* Pods-LyveTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q678CV3DLR;
+				INFOPLIST_FILE = LyveTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshualeung.LyveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lyve.app/Lyve";
+			};
+			name = Debug;
+		};
+		D0F220412477C1CE00BC269E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DBC89B623476AA065D672D8 /* Pods-LyveTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q678CV3DLR;
+				INFOPLIST_FILE = LyveTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshualeung.LyveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lyve.app/Lyve";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D0F220152477C1CB00BC269E /* Build configuration list for PBXProject "Lyve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0F2203A2477C1CE00BC269E /* Debug */,
+				D0F2203B2477C1CE00BC269E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0F2203C2477C1CE00BC269E /* Build configuration list for PBXNativeTarget "Lyve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0F2203D2477C1CE00BC269E /* Debug */,
+				D0F2203E2477C1CE00BC269E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0F2203F2477C1CE00BC269E /* Build configuration list for PBXNativeTarget "LyveTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0F220402477C1CE00BC269E /* Debug */,
+				D0F220412477C1CE00BC269E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D0F220262477C1CB00BC269E /* Lyve.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D0F220272477C1CB00BC269E /* Lyve.xcdatamodel */,
+			);
+			currentVersion = D0F220272477C1CB00BC269E /* Lyve.xcdatamodel */;
+			path = Lyve.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D0F220122477C1CB00BC269E /* Project object */;
+}
